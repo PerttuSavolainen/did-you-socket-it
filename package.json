@@ -6,7 +6,8 @@
   "repository": "",
   "author": "",
   "scripts": {
-    "test": "./node_modules/jshint/bin/jshint hello.js"
+    "test": "./node_modules/jshint/bin/jshint hello.js",
+    "mocha": "mocha test"
   },
   "dependencies": {
     "async": "~0.2.8",
@@ -14,6 +15,8 @@
     "socket.io": "~0.9.14"
   },
   "devDependencies": {
-    "jshint": "^2.9.4"
+    "istanbul": "^0.4.5",
+    "jshint": "^2.9.4",
+    "mocha": "^3.3.0"
   }
 }
