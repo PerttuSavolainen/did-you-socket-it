@@ -10,6 +10,23 @@ var async = require('async');
 var socketio = require('socket.io');
 var express = require('express');
 
+var mongoose = require('mongoose');
+var morgan = require('morgan');
+var config = require('config');
+
+//db options
+let options = { 
+  server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }, 
+  replset: { socketOptions: { keepAlive: 1, connectTimeoutMS : 30000 } } 
+};
+
+mongoose.connect(config.DBHost, options);
+
+//db connection      
+mongoose.connect(config.DBHost, options);
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+
 //
 // ## SimpleServer `SimpleServer(obj)`
 //
@@ -19,6 +36,12 @@ var express = require('express');
 var router = express();
 var server = http.createServer(router);
 var io = socketio.listen(server);
+
+//don't show the log when it is test
+if(config.util.getEnv('NODE_ENV') !== 'test') {
+    //use morgan to log at command line
+    router.use(morgan('combined')); //'combined' outputs the Apache style LOGs
+}
 
 router.use(express.static(path.resolve(__dirname, 'client')));
 var messages = [];
@@ -76,6 +99,10 @@ function broadcast(event, data) {
   sockets.forEach(function (socket) {
     socket.emit(event, data);
   });
+}
+
+function dummyFunctionForMocha() {
+  return "shiteee...";
 }
 
 server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){

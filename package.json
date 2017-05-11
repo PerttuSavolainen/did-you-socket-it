@@ -6,15 +6,19 @@
   "repository": "",
   "author": "",
   "scripts": {
-    "test": "./node_modules/jshint/bin/jshint hello.js",
+    "test": "./node_modules/jshint/bin/jshint server.js",
     "mocha": "mocha test"
   },
   "dependencies": {
     "async": "~0.2.8",
+    "config": "^1.26.1",
     "express": "~3.2.4",
+    "mongoose": "^4.9.8",
+    "morgan": "^1.8.1",
     "socket.io": "~0.9.14"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "istanbul": "^0.4.5",
     "jshint": "^2.9.4",
     "mocha": "^3.3.0"
